@@ -1,2 +1,3 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"D:/VSCodeProjects/WaveGame/WaveGame/Content/img/playersprite.jpeg","D:/VSCodeProjects/WaveGame/WaveGame/Content/bin/DesktopGL/Content/img/playersprite.xnb","TextureProcessor","Texture2DContent",4140,19405,0.1340543
 "D:/VSCodeProjects/WaveGame/WaveGame/Content/img/tile.png","D:/VSCodeProjects/WaveGame/WaveGame/Content/bin/DesktopGL/Content/img/empty hex.xnb","TextureProcessor","Texture2DContent",29789,56917,0.1445129

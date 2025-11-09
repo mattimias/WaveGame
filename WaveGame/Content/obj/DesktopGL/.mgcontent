@@ -4,9 +4,11 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
+    <File>d:/VSCodeProjects/WaveGame/WaveGame/Content/img/playersprite.jpeg</File>
     <File>d:/VSCodeProjects/WaveGame/WaveGame/Content/img/tile.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File>img/empty hex.png</File>
   </DestFiles>
 </SourceFileCollection>

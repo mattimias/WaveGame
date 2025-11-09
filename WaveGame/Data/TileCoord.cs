@@ -4,6 +4,11 @@ public class TileCoord(int q, int r)
 {
     public int Q = q;
     public int R = r;
+
+    public override string ToString()
+    {
+        return $"({Q}, {R})";
+    }
 }
 
 // pointy top hexagons

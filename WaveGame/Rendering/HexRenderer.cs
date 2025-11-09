@@ -1,11 +1,7 @@
 
-using System;
-using System.Collections.Generic;
-using System.Net.Mime;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using WaveGame.Base;
+using WaveGame.World;
 using WaveGame.Data;
 
 namespace WaveGame.Rendering;
@@ -13,11 +9,16 @@ public class HexRenderer(HexMap hexMap)
 {
     public HexMap HexMap = hexMap;
 
-    public void Draw(SpriteBatch spriteBatch, Rectangle clientBounds)
+    public void Update(Vector2 screenCentre, bool playerCanMove)
+    {
+        HexMap.Update(screenCentre, playerCanMove);
+    }
+
+    public void Draw(SpriteBatch spriteBatch, Vector2 screenCentre)
     {
         foreach (HexTile hexTile in HexMap.HexTiles)
         {
-            hexTile.Draw(spriteBatch, clientBounds);
+            hexTile.Draw(spriteBatch, screenCentre);
         }
     }
 }

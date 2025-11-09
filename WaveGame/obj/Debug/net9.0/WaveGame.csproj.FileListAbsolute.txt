@@ -34,3 +34,5 @@ D:\VSCodeProjects\WaveGame\WaveGame\obj\Debug\net9.0\ref\WaveGame.dll
 D:\VSCodeProjects\WaveGame\WaveGame\bin\Debug\net9.0\MonoGameLibrary.dll
 D:\VSCodeProjects\WaveGame\WaveGame\bin\Debug\net9.0\MonoGameLibrary.pdb
 D:\VSCodeProjects\WaveGame\WaveGame\bin\Debug\net9.0\Content\img\empty hex.xnb
+D:\VSCodeProjects\WaveGame\WaveGame\obj\Debug\net9.0\WaveGame.sourcelink.json
+D:\VSCodeProjects\WaveGame\WaveGame\bin\Debug\net9.0\Content\img\playersprite.xnb

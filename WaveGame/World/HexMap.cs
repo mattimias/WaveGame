@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using WaveGame.Data;
 
-namespace WaveGame.Base;
+namespace WaveGame.World;
 
 public abstract class HexMap
 {
@@ -38,6 +40,32 @@ public abstract class HexMap
         DefaultHex = defaultHex;
     }
 
+    public void Update(Vector2 screenCentre, bool playerCanMove)
+    {
+        var MousePosition = Mouse.GetState().Position.ToVector2() - screenCentre;
+        float minD = float.MaxValue;
+        HexTile selected = null;
+
+        foreach (HexTile tile in HexTiles)
+        {
+            tile.Color = Color.White;
+
+            var d = Vector2.Distance(MousePosition, tile.Position);
+            if (d < minD)
+            {
+                minD = d;
+                selected = tile;
+            }
+        }
+
+        if (minD < Math.Max(selected.Origin.Y, selected.Origin.X))
+        {
+            if (playerCanMove) selected.Color = Color.White;
+            else selected.Color = Color.Red;
+        }
+        
+    }
+
     public void AddTile(int q, int r, Texture2D hexTexture)
     {
         var coords = new TileCoord(q, r);
@@ -47,7 +75,7 @@ public abstract class HexMap
 
 // 
 
-public class EmptyHexMap : HexMap
+public sealed class EmptyHexMap : HexMap // Empty Hex Map only
 {
     public EmptyHexMap(Texture2D defaultHex, int length = 1, int breadth = 1) : base(defaultHex, length, breadth)
     {

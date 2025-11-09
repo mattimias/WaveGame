@@ -3,13 +3,21 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGameLibrary;
-using WaveGame.Base;
+using WaveGame.World;
 using WaveGame.Rendering;
+using WaveGame.Input;
 
 namespace WaveGame;
 
 public class Game1 : Core
 {
+    public HexMap GameMap;
+    public HexRenderer HexRenderer;
+    public Vector2 ScreenCentre;
+    public Player Player;
+    public InputManager InputManager;
+    public Vector2 HexDims;
+
     public Game1() : base("WaveGame", 1280, 720, false)
     {
         IsMouseVisible = true;
@@ -20,6 +28,14 @@ public class Game1 : Core
         // TODO: Add your initialization logic here
 
         base.Initialize();
+        var emptyHex = Content.Load<Texture2D>("img/empty hex");
+        HexDims = new Vector2(emptyHex.Width, emptyHex.Height);
+        GameMap = new EmptyHexMap(emptyHex, 5, 5);
+        HexRenderer = new HexRenderer(GameMap);
+
+        var playerSprite = Content.Load<Texture2D>("img/playersprite");
+        Player = new Player(playerSprite, new Data.TileCoord(0, 0));
+        InputManager = new InputManager(Mouse.GetState().Position.ToVector2(), Player);
     }
 
     protected override void LoadContent()
@@ -33,8 +49,11 @@ public class Game1 : Core
             Exit();
 
         // TODO: Add your update logic here
-
+        ScreenCentre = new Vector2(Window.ClientBounds.Width * 0.5f, Window.ClientBounds.Height * 0.5f);
         base.Update(gameTime);
+        InputManager.Update(GameMap.HexTiles, ScreenCentre, HexDims);
+        HexRenderer.Update(ScreenCentre, Player.Stamina > 0);
+        
     }
 
     protected override void Draw(GameTime gameTime)
@@ -42,14 +61,12 @@ public class Game1 : Core
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
         // TODO: Add your drawing code here
-        var emptyHex = Content.Load<Texture2D>("img/empty hex");
-        var hexMap = new EmptyHexMap(emptyHex, 5, 5);
-        var hexRenderer = new HexRenderer(hexMap);
-
-        SpriteBatch.Begin();
-        hexRenderer.Draw(SpriteBatch, Window.ClientBounds);
-        SpriteBatch.End();
 
         base.Draw(gameTime);
+        SpriteBatch.Begin(sortMode: SpriteSortMode.FrontToBack); // Higher layerDepth is drawn first
+        HexRenderer.Draw(SpriteBatch, ScreenCentre);
+        Player.Draw(SpriteBatch, ScreenCentre);
+        Console.WriteLine((Player.Location, Player.Stamina));
+        SpriteBatch.End();
     }
 }

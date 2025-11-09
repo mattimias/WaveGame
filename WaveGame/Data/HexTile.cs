@@ -1,13 +1,15 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using WaveGame.Base;
 
 namespace WaveGame.Data;
 
-public class HexTile(Texture2D texture, TileCoord coords)
+public class HexTile(Texture2D texture, TileCoord coords, int height = 0)
 {
-    public int Height = 0; // Used for rendering + movement cost
+    public int Height = height; // Used for rendering + movement cost
     public TileCoord Coordinates = coords; // Axial coordinates;
+    public int MovementCost = 1 + height;
     
     public bool Discovered = false;
     public VisibilityState Visibility = VisibilityState.Hidden;
@@ -21,25 +23,11 @@ public class HexTile(Texture2D texture, TileCoord coords)
     public Texture2D Texture = texture;
     public Color Color = Color.White;
     public Vector2 Origin = new(texture.Width / 2, texture.Height / 2);
-    public Vector2 Position = GetPosition(texture, coords);
+    public Vector2 Position = Functions.GetHexPosition(texture, coords);
 
-    private static Vector2 GetPosition(Texture2D tex, TileCoord cds)
+    public void Draw(SpriteBatch spriteBatch, Vector2 screenCentre) // Update position according to window
     {
-        var x = 0.5f * MathF.Sqrt(3) * (cds.Q + cds.R / 2);
-        var y = 1.5f * cds.R;
-
-        return new(
-                x * tex.Height + (cds.R % 2 * tex.Width / 2), // No idea why this works honestly
-                y * 0.5f * tex.Height);
-        
-        // return new(
-        //     x * tex.Width, y * 0.75f * tex.Height
-        // );
-    }
-
-    public void Draw(SpriteBatch spriteBatch, Rectangle clientBounds) // Update position according to window
-    {
-        var newPos = new Vector2(Position.X + clientBounds.Width * 0.5f, Position.Y + clientBounds.Height * 0.5f);
-        spriteBatch.Draw(Texture, newPos, null, Color, 0f, Origin, 1f, SpriteEffects.None, 1f);
+        var newPos = Position + screenCentre;
+        spriteBatch.Draw(Texture, newPos, null, Color, 0f, Origin, 1f, SpriteEffects.None, 0f);
     }
 }

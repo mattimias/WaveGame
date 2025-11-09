@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WaveGame")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4c898c29417a2a431335454aa803d9cb22493f14")]
 [assembly: System.Reflection.AssemblyProductAttribute("WaveGame")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WaveGame")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
